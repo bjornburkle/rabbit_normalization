@@ -38,11 +38,12 @@ usage: `get_sat_act.py [-h] -f FILE -i IRRAD_TIME`
 Give the name of the input file and the irradiation time.
 
 optional arguments:<br/>
-  `-h`, `--help`            show this help message and exit<br/>
-  `-f FILE`, `--file FILE`  Name of the input file which will contain the
-                        measurements<br\>
+  `-h`, `--help`
+show this help message and exit<br/>
+  `-f FILE`, `--file FILE`
+Name of the input file which will contain the measurements<br/>
   `-i IRRAD_TIME`, `--irrad_time IRRAD_TIME`
-                        The length of the irradiation time, in hours<br/>
+The length of the irradiation time, in hours<br/>
 
 ------------------------------------------------------------------------
 
@@ -51,7 +52,7 @@ You would run the example script in the following way:
  `python get_sat_act.py -f meas_test.txt -i 0.45`
 
 For `get_sat_act.py` measurements must be entered with the following format:<br/>
-foil,    meas\_act,    foil\_mass,    wait\_time
+foil,&nbsp; &nbsp; &nbsp; meas\_act,&nbsp; &nbsp; &nbsp; foil\_mass,&nbsp; &nbsp; &nbsp; wait\_time
 
 Note that these script to run, these values must be delimated using a comma followed by a tab.
 
@@ -79,7 +80,7 @@ Co:    7.46E-11<br/>
 This script will take the saturated activity measurements obtained using `get_sat_act.py` and use those values to find a rabbit system normalization of the 8-inch beam port energy spectrum. It does this by applying two different normalizations. Foils which are senstive to thermal neutrons will put a normalization on the Thermal and Intermediate spectrum. Foils which are sensetive only to fission neutrons will apply a normalization to the intermediate spectrum.
 
 From the previous script, you will obtain the output file `act_meas_test.txt`. This file is already in the format needed to feed into `normalization.py`but requires some editing. Once again, the formatting of the information are:<br/>
-foil,    sat\_act,    covered,    neutrons\_sensetivity
+foil,&nbsp; &nbsp; &nbsp; sat\_act,&nbsp; &nbsp; &nbsp; covered,&nbsp; &nbsp; &nbsp; neutrons\_sensetivity
 
 Where the values are delimated using a comma followed by a tab. The values listed represent the following things:
 
@@ -101,11 +102,14 @@ usage: normalize.py [-h] -a ACTIVITY [-f FILE] [-p]
 State name of output file you are getting your fit parameters from
 
 optional arguments:<br/>
-  `-h, --help`            show this help message and exit<br/>
+  `-h, --help`
+show this help message and exit<br/>
   `-a ACTIVITY, --activity ACTIVITY`
-                        Name of activity file you are using<br/>
-  `-f FILE, --file FILE`  Name of file you are getting fit params from<br/>
-  `-p, --plot`            Plot spectrum<br/>
+Name of activity file you are using<br/>
+  `-f FILE, --file FILE`
+Name of file you are getting fit params from<br/>
+  `-p, --plot`
+Plot spectrum<br/>
 
 ------------------------------------------------------------------------
 
