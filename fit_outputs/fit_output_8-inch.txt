@@ -1,0 +1,83 @@
+Spectrum Output Information
+Run date was: 1/9/2019
+
+
+Input Information:
+Foil	Activity	Stat_Unc	Time_Unc_Up	Time_Unc_Down	Shielding	Thickness
+Al,	3.86e-16,	3.86e-17,	0,	0,		cd,	0.002354
+Al,	4.28e-16,	4.28e-17,	0,	0,		null,	0
+Fe54,	3.32e-14,	3.32e-15,	0,	0,		cd,	0.002354
+Fe54,	2.97e-14,	2.97e-15,	0,	0,		null,	0
+Fe58,	3.18e-13,	3.18e-14,	0,	0,		cd,	0.002354
+Fe58,	6.14e-12,	6.14e-13,	0,	0,		null,	0
+Zr,	7.97e-17,	7.97e-18,	0,	0,		cd,	0.002354
+Zr,	8.22e-17,	8.22e-18,	0,	0,		null,	0
+Cu,	1.44e-12,	1.44e-13,	0,	0,		cd,	0.002354
+Cu,	3.67e-11,	3.67e-12,	0,	0,		null,	0
+
+
+The obtained paramters are:
+Thermal Scale:	5.29117e-12
+Interm Scale:	2.15423e-13
+Fission Scale:	2.31609e-13
+
+Temperature was assumed to be 70F
+Connection between thermal and intermediate neutron, and intermediate and fission region are:
+1.47172e-07,	0.5
+Standard function was used.
+
+Activity Information:
+Foils	Measured	Calculated	(measured)/(calculated)
+Al,	3.86e-16,	3.30058e-16,	1.16949
+Al,	4.28e-16,	3.3336e-16,	1.2839
+Fe54,	3.32e-14,	4.03811e-14,	0.822167
+Fe54,	2.97e-14,	4.07882e-14,	0.728151
+Fe58,	3.18e-13,	3.62349e-13,	0.877608
+Fe58,	6.14e-12,	7.26207e-12,	0.845489
+Zr,	7.97e-17,	3.21123e-17,	2.48191
+Zr,	8.22e-17,	3.24605e-17,	2.53231
+Cu,	1.44e-12,	1.15031e-12,	1.25184
+Cu,	3.67e-11,	2.52667e-11,	1.45251
+
+Chi2 value of fit is: 116.91
+1 MeV equiv of spectrum is: 7.02939e-13 n/bn/s
+which is equal to: 7.02939e+11 n/cm^2/s
+1MeV equiv is with no thermal spectrum is: 6.97549e+11 n/cm^2/s
+
+
+Total neutron flux is:
+8.54075e+12 n/cm^2/s
+
+Error Matrix Used Is:
+3.86e-17	0	0	0	0	0	0	0	0	0	
+0	4.28e-17	0	0	0	0	0	0	0	0	
+0	0	3.32e-15	0	0	0	0	0	0	0	
+0	0	0	2.97e-15	0	0	0	0	0	0	
+0	0	0	0	3.18e-14	0	0	0	0	0	
+0	0	0	0	0	6.14e-13	0	0	0	0	
+0	0	0	0	0	0	7.97e-18	0	0	0	
+0	0	0	0	0	0	0	8.22e-18	0	0	
+0	0	0	0	0	0	0	0	1.44e-13	0	
+0	0	0	0	0	0	0	0	0	3.67e-12	
+
+Inverted Error Matrix Used:
+2.59067e+16	0	0	0	0	0	0	0	0	0	
+0	2.33645e+16	0	0	0	0	0	0	0	0	
+0	0	3.01205e+14	0	0	0	0	0	0	0	
+0	0	0	3.367e+14	0	0	0	0	0	0	
+0	0	0	0	3.14465e+13	0	0	0	0	0	
+0	0	0	0	0	1.62866e+12	0	0	0	0	
+0	0	0	0	0	0	1.25471e+17	0	0	0	
+0	0	0	0	0	0	0	1.21655e+17	0	0	
+0	0	0	0	0	0	0	0	6.94444e+12	0	
+0	0	0	0	0	0	0	0	0	2.7248e+11	
+
+
+
+
+
+
+
+
+
+

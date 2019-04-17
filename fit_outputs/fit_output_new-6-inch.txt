@@ -1,0 +1,63 @@
+Spectrum Output Information
+Run date was: 11/13/2018
+
+
+Input Information:
+Foil	Activity	Stat_Unc	Time_Unc_Up	Time_Unc_Down	Shielding	Thickness
+Al,	1.59e-16,	1.59e-17,	0,	0,		null,	0
+Fe54,	1.79e-14,	1.79e-15,	0,	0,		null,	0
+Fe58,	5.58e-12,	5.58e-13,	0,	0,		null,	0
+Zr,	4.48e-17,	4.48e-18,	0,	0,		null,	0
+Cu,	1.87e-11,	1.87e-12,	0,	0,		null,	0
+
+
+The obtained paramters are:
+Thermal Scale:	4.21516e-12
+Interm Scale:	1e-14
+Fission Scale:	1.16796e-13
+
+Temperature was assumed to be 70F
+Connection between thermal and intermediate neutron, and intermediate and fission region are:
+2.37899e-07,	0.157972
+Standard function was used.
+
+Activity Information:
+Foils	Measured	Calculated	(measured)/(calculated)
+Al,	1.59e-16,	1.68107e-16,	0.945826
+Fe54,	1.79e-14,	2.05687e-14,	0.870253
+Fe58,	5.58e-12,	5.46019e-12,	1.02194
+Zr,	4.48e-17,	1.63692e-17,	2.73684
+Cu,	1.87e-11,	1.90848e-11,	0.979835
+
+Chi2 value of fit is: 42.9131
+1 MeV equiv of spectrum is: 2.80569e-13 n/bn/s
+which is equal to: 2.80569e+11 n/cm^2/s
+1MeV equiv is with no thermal spectrum is: 2.76264e+11 n/cm^2/s
+
+
+Total neutron flux is:
+4.2224e+12 n/cm^2/s
+
+Error Matrix Used Is:
+1.59e-17	0	0	0	0	
+0	1.79e-15	0	0	0	
+0	0	5.58e-13	0	0	
+0	0	0	4.48e-18	0	
+0	0	0	0	1.87e-12	
+
+Inverted Error Matrix Used:
+6.28931e+16	0	0	0	0	
+0	5.58659e+14	0	0	0	
+0	0	1.79211e+12	0	0	
+0	0	0	2.23214e+17	0	
+0	0	0	0	5.34759e+11	
+
+
+
+
+
+
+
+
+
+

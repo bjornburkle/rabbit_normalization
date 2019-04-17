@@ -1,0 +1,27 @@
+Original ratio of meas_act/calc_act for each foils is:
+foil,	meas act,	calc act,	 meas/calc
+Fe54,	1.93E-14,	4.08E-14,	0.4732
+Fe56,	2.66E-16,	4.88E-16,	0.5454
+Fe58,	3.99E-12,	7.26E-12,	0.5494
+
+Average meas_act/calc_act before normalization is:  0.5227
+Average thermal ratio:  0.5494
+Average fission ratio:  0.5093
+
+Adjusted normalization so new ratio is 1.0.
+The activity values and ratio for foils are now:
+foil,	meas act,	calc act,	 meas/calc
+Fe54,	1.93E-14,	2.08E-14,	0.9291
+Fe56,	2.66E-16,	2.48E-16,	1.0709
+Fe58,	3.99E-12,	3.99E-12,	1.0000
+
+Average ratio after normalization is:  1.0000
+
+Normalized 1 MeV equivalence is:  3.66E+11 n/cm^2/s
+
+New function parameters are:
+Thermal:	2.91E-12
+Intermediate:	1.18E-13
+Fission:	1.18E-13
+Thermal-Interm Connection:	1.47E-07
+Interm-Fission Connection:	5.00E-01
