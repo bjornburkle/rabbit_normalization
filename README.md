@@ -26,7 +26,7 @@ Foils are normally measured about 24 hours after the irradiation takes place, an
 ## Saturated Activity Calculation
 
 To obtain the saturated activity values, you must run the python script `get_sat_act.py`
-For an example, I have included the file `meas_test.txt`. This includes the foil irradiations for the 6e14 irradiation on 2/13/2019. These foils were irradiated for 27 minutes. (Note: we obtained these measurements back calculated. However, the activity measurements in this files are what we obtained after undoing the back calculation.)
+For an example, I have included the file `measurements/meas_test.txt`. This includes the foil irradiations for the 6e14 irradiation on 2/13/2019. These foils were irradiated for 27 minutes. (Note: we obtained these measurements back calculated. However, the activity measurements in this files are what we obtained after undoing the back calculation.)
 
 The python script will calculate both the initial activities (the acitivity of the various isotopes at the end of the irradiation) and the corresponding saturated activity values. The initial activity values will be printed to the terminal, but not recorded. However, the saturated activity values will be saved to an output file.
 
@@ -85,7 +85,7 @@ It is normal if your measured values differ from the averages by around 10-20\%
 
 This script takes the saturated activity measurements obtained using `get_sat_act.py` and find a normalization of the 8-inch beam port energy spectrum which fits your measurements. It does this by applying two different normalizations. Foils which are senstive to thermal neutrons will put a normalization on the Thermal and Intermediate spectrum. Foils which are sensetive only to fission neutrons will apply a normalization to the intermediate spectrum.
 
-If you ran the previous script on the test file, you will have the output file `act_meas_test.txt`. This file is already in the format required for the `normalization.py` script, but requires some editing. If you look at `act_meas_test.txt`, you will see that the formatting of the information is:<br/>
+If you ran the previous script on the test file, you will have the output file `activities/act_meas_test.txt`. This file is already in the format required for the `normalization.py` script, but requires some editing. If you look at `activities/act_meas_test.txt`, you will see that the formatting of the information is:<br/>
 foil,&nbsp; &nbsp; &nbsp; sat\_act,&nbsp; &nbsp; &nbsp; \<cd or null\>,&nbsp; &nbsp; &nbsp; \<thermal or fission\>
 
 Where the values are delimated using a comma followed by a tab (this is required for the pythong parser). The values listed represent the following things:<br/>
@@ -123,7 +123,7 @@ The `-f` option is not reqiuired, but is used if you want to select which spectr
 Finally, the `-p` option should be included if you wish to create a plot of the normalized spectrum. Doing this will save a plot in the current directory (has the default name `normalized_spectrum.png`) as well as an image saved in the `plot/` directory. The image saved to the `plot/` directory will include the name of the activity input file in its name.
 
 
-A sample version of a properly edited input file is seen in `act_test.txt`. As an example, type the following command into the terminal:
+A sample version of a properly edited input file is seen in `activities/act_test.txt`. As an example, type the following command into the terminal:
 
  `python normalize.py -a act_test.txt -p`
 
