@@ -10,7 +10,7 @@ from decimal import Decimal
 
 import argparse
 parser = argparse.ArgumentParser(description = 'Give the name of the input file and the irradiation time.')
-parser.add_argument('-f', '--file', type=str, required=True, help='Name of the input file which will contain the measurements')
+parser.add_argument('-f', '--file', type=str, required=True, help='Name of the input file which will contain the measurements. It is assumed that this file is in the "measurements" directory')
 parser.add_argument('-i', '--irrad_time', type=float, required=True, help='The length of the irradiation time, in hours')
 args = parser.parse_args()
 
@@ -69,14 +69,17 @@ class foil():
         print 'Saturated activity for %s is %.2E decays/nuclei/s' % (self.foil, Decimal(self.act))
 
 def ReadFile(filename):
+    filename = 'measurements/%s' % filename
     foils=[]
     f = open(filename, 'r').read().splitlines()
     print 'Calculating Activites For:'
     for line in f:
+        if len(line) == 0:
+            continue
         meas = line.split(',\t')
         meas.append(args.irrad_time)
-        foils.append(foil(*meas))
         print meas[0]
+        foils.append(foil(*meas))
     return foils
 
 def main():
@@ -89,7 +92,7 @@ def main():
         foil.sat_act()
 
     print 'Writing activity file'
-    fout = open('act_%s'%args.file, 'w')
+    fout = open('activities/act_%s'%args.file, 'w')
     for i, foil in enumerate(foils):
         fout.write('%s,\t%.3E,\t' % (foil.foil, Decimal(foil.act)))
         fout.write('<cd or null>,\t<thermal or fission>')

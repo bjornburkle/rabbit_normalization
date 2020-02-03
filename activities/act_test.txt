@@ -1,0 +1,3 @@
+Fe54,	1.93E-14,	null,	fission
+Fe56,	2.66E-16,	null,	fission
+Fe58,	3.99E-12,	null,	thermal

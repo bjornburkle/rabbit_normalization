@@ -5,7 +5,7 @@ import array
 from decimal import Decimal
 
 parser = argparse.ArgumentParser(description = 'State name of output file you are getting your fit parameters from')
-parser.add_argument('-a', '--activity', type=str, required=True, help='Name of activity file you are using')
+parser.add_argument('-a', '--activity', type=str, required=True, help='Name of activity file you are using. It is assumed that this file is in the "activity" directory')
 parser.add_argument('-f', '--file', type=str, default='fit_output_8-inch.txt', help='Name of file you are getting fit params from')
 #parser.add_argument('-p', '--plot', type=int, default=0, help='Plot spectrum')
 parser.add_argument('-p', '--plot', action='store_true', help='Plot spectrum')
@@ -31,6 +31,7 @@ class foil():
     cd_xsec = []
     cd_thick = 0.025 #units of inches, need to convert to nuclei/bn
     # this conversion is: inch -> cm -> g/cm^2 -> N/cm^2 -> N/bn
+    # calculation is (thickness in inches) * (inch/cm) * (g/cm^3) / (molar mass / avogadros number) / (cm/bn)
     cd_thick = ( cd_thick*(2.54) )*(8.65) / ( 112.414/6.02E23 ) / (10**24)
     inCd = False
 
@@ -42,6 +43,10 @@ class foil():
         if self.cd == 'cd':
             self.inCd = True
             print self.name, self.cd_thick
+        elif self.cd != 'null':
+            self.inCd = True
+            # This was thickness of aluminum used in a test
+            self.cd_thick = ( (1./8.)*(2.54) )*(2.70) / (26.981/6.02E23) / (10**24)
 
     def calculateAct(self, spectrum):
         print 'calculating act for:', self.name
@@ -62,7 +67,10 @@ class foil():
             xsec += [float(val) for val in line.split()]
         #f.Close()
         if self.inCd:
-            cd_f = open('inputs/cd_case.txt', 'r').readlines()
+            if self.cd == 'cd':
+                cd_f = open('inputs/cd_case.txt', 'r').readlines()
+            else:
+                cd_f = open('inputs/%s.txt' % self.cd, 'r').readlines()
             for line in cd_f:
                 cd_xsec += [self.cd_thick*float(val) for val in line.split()]
             xsec = [foil*np.exp(-cd) for foil, cd in zip(xsec, cd_xsec)]
@@ -82,8 +90,8 @@ class foil():
 # Information must be formed in the following way:
 #   foil, meas_act, in shielding (null or cd), neutron type (thermal or fission)
 def readAct(filename):
-    f = open(filename).readlines()
-    foils = {}
+    f = open('activities/%s' % filename).readlines()
+    foils = []
     low_high = 0
     for line in f:
         par = line.split(',\t')
@@ -99,7 +107,7 @@ def readAct(filename):
             print 'Last param must be thermal or fission'
             quit()
         #foils[line.split(',\t')[0]] = foil(line.split(',\t')[0], float(line.split(',\t')[1]), line.split(',\t')[2])
-        foils[key] = foil(par[0], par[1], par[2], low_high)
+        foils.append(foil(par[0], par[1], par[2], low_high))
     return foils
 
 def readXSec(foil):
@@ -199,7 +207,7 @@ def main():
 
     print 'Reading Input Files'
     foils = readAct(args.activity)
-    print foils.keys()
+    print [foil.name for foil in foils]
     energy = readXSec('energy')
     #energy.append(20)
     damage, damage_energy = getDamage()
@@ -223,25 +231,25 @@ def main():
     fout.write('foil,\tmeas act,\tcalc act,\t meas/calc\n')
     for foil in foils:
         #foils[foil.name].xsec = readXSec(foil)
-        foils[foil].readXSec()
+        foil.readXSec()
         #if foils[foil].inCd:
         #    foils[foil].cdXsec()
-        foils[foil].energy = energy
-        foils[foil].calculateAct(spectrum)
-        print foil, foils[foil].measAct, foils[foil].calcAct, foils[foil].ratio
-        fout.write('%s,\t%.2E,\t%.2E,\t%.4f\n' % (foil, Decimal(foils[foil].measAct), Decimal(foils[foil].calcAct), foils[foil].ratio))
+        foil.energy = energy
+        foil.calculateAct(spectrum)
+        print foil.name, foil.measAct, foil.calcAct, foil.ratio
+        fout.write('%s,\t%.2E,\t%.2E,\t%.4f\n' % (foil.name, Decimal(foil.measAct), Decimal(foil.calcAct), foil.ratio))
 
     # Getting ratio values
-    avg_ratio = sum([foils[foil].ratio for foil in foils])
-    low_ratio = sum([foils[foil].ratio for foil in foils if foils[foil].low_high == 0])
-    high_ratio = sum([foils[foil].ratio for foil in foils if foils[foil].low_high == 1])
+    avg_ratio = sum([foil.ratio for foil in foils])
+    low_ratio = sum([foil.ratio for foil in foils if foil.low_high == 0])
+    high_ratio = sum([foil.ratio for foil in foils if foil.low_high == 1])
 
     avg_ratio = avg_ratio/len(foils)
-    if not len([foils[foil] for foil in foils if foils[foil].low_high == 0]) == 0:
-        low_ratio = low_ratio/len([foils[foil] for foil in foils if foils[foil].low_high == 0])
+    if not len([foil for foil in foils if foil.low_high == 0]) == 0:
+        low_ratio = low_ratio/len([foil for foil in foils if foil.low_high == 0])
     else:
         low_ratio = 0
-    high_ratio = high_ratio/len([foils[foil] for foil in foils if foils[foil].low_high == 1])
+    high_ratio = high_ratio/len([foil for foil in foils if foil.low_high == 1])
 
     print 'Average meas_act/calc_act value before normalization is:', avg_ratio
     print 'Average thermal ratio:', low_ratio
@@ -262,11 +270,11 @@ def main():
     fout.write('\nAdjusted normalization so new ratio is 1.0.\nThe activity values and ratio for foils are now:\n')
     fout.write('foil,\tmeas act,\tcalc act,\t meas/calc\n')
     for foil in foils:
-        foils[foil].calculateAct(spectrum)
-        print foil, foils[foil].calcAct, foils[foil].ratio
-        fout.write('%s,\t%.2E,\t%.2E,\t%.4f\n' % (foil, Decimal(foils[foil].measAct), Decimal(foils[foil].calcAct), foils[foil].ratio))
+        foil.calculateAct(spectrum)
+        print foil.name, foil.calcAct, foil.ratio
+        fout.write('%s,\t%.2E,\t%.2E,\t%.4f\n' % (foil.name, Decimal(foil.measAct), Decimal(foil.calcAct), foil.ratio))
 
-    avg_ratio = sum([foils[foil].ratio for foil in foils])/len(foils)
+    avg_ratio = sum([foil.ratio for foil in foils])/len(foils)
     print 'Average ratio after normalization is:', avg_ratio
     fout.write('\nAverage ratio after normalization is:  %.4f\n' % avg_ratio)
 
