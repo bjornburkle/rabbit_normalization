@@ -1,3 +1,5 @@
+#!/usr/bin/python2.7
+
 import math
 from decimal import Decimal
 
@@ -47,6 +49,16 @@ nm = {
   'Co': 59
 }
 
+spec = {
+    'Al': 'fission',
+    'Fe54': 'fission',
+    'Fe56': 'fission',
+    'Fe58': 'thermal',
+    'Zr': 'fission',
+    'Cu': 'fission',
+    'Co': 'thermal',
+}
+
 class foil():
     
     def __init__(self, foil, act, mass, wait_time, rad_time):
@@ -58,6 +70,7 @@ class foil():
         self.rad_time = float(rad_time)
         self.mass = float(mass)
         self.wait_time = float(wait_time)
+        self.spec = spec[foil]
 
     def init_act(self):
         self.act = self.act*math.exp(self.wait_time * self.decay)
@@ -95,7 +108,7 @@ def main():
     fout = open('activities/act_%s'%args.file, 'w')
     for i, foil in enumerate(foils):
         fout.write('%s,\t%.3E,\t' % (foil.foil, Decimal(foil.act)))
-        fout.write('<cd or null>,\t<thermal or fission>')
+        fout.write('null,\t%s' % foil.spec)
         if i+1 != len(foils):
             fout.write('\n')
     print 'Script has finished'
