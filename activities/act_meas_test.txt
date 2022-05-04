@@ -1,4 +1,0 @@
-Fe54,	2.493E-14,	<cd or null>,	<thermal or fission>
-Fe56,	1.198E-16,	<cd or null>,	<thermal or fission>
-Fe58,	5.338E-12,	<cd or null>,	<thermal or fission>
-Co,	6.767E-11,	<cd or null>,	<thermal or fission>
